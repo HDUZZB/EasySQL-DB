@@ -61,7 +61,7 @@ void Handle_Insert(const char *Insertstr) { //插入操作
 	char temp[Max];
 	int pivot=0;
 	fstream out; //建立流对象
-	out.open("d:\\HAPPY\\sqldata.txt",ios::out|ios::app); //关联文件sqldata,并设置打开方式为out|app，在原有文件的末尾插入记录
+	out.open("sqldata.txt",ios::out|ios::app); //关联文件sqldata,并设置打开方式为out|app，在原有文件的末尾插入记录
 	for(index=index+2; *index!='\0'; index++) {
 		if(*index=='\'' && *(index+1)==',') { //若匹配到字符'\'',并且不是最后一个属性值
 			index+=2;
@@ -116,7 +116,7 @@ void Handle_Search(char *Searchstr) { //查询操作
 	for(index=index+2; *index!='\''; index++)
 		sym[pivot++]=*index;
 	sym[pivot]='\0';
-	ifstream in("d:\\HAPPY\\sqldata.txt");
+	ifstream in("sqldata.txt");
 	string line;
 	char check[Max];
 	char par[Max];
@@ -191,10 +191,10 @@ void Handle_Update(const char *Updatestr) { //更新操作
 	for( ; *index!='\''; index++) //匹配判断属性项的值
 		sosubstr[pivot++]=*index;
 	sosubstr[pivot]='\0';
-	ifstream in("d:\\HAPPY\\sqldata.txt");//输入流对象，关联文件sqldata
+	ifstream in("sqldata.txt");//输入流对象，关联文件sqldata
 	fstream out;
-	out.open("d:\\HAPPY\\sqlhelpdata.txt",ios::out);//关联文件sqlhelpdata
-	ofstream oout("d:\\HAPPY\\sqlhelpdata.txt");//输出流对象，关联文件sqlhelpdata
+	out.open("sqlhelpdata.txt",ios::out);//关联文件sqlhelpdata
+	ofstream oout("sqlhelpdata.txt");//输出流对象，关联文件sqlhelpdata
 	char finally[Max],check[Max],par[Max];
 	int Count;
 	string line;
@@ -229,9 +229,9 @@ void Handle_Update(const char *Updatestr) { //更新操作
 				par[pivot++]=*index;
 		}
 	}
-	ifstream fin("d:\\HAPPY\\sqlhelpdata.txt");
+	ifstream fin("sqlhelpdata.txt");
 	fstream ftest;
-	ftest.open("d:\\HAPPY\\sqldata.txt",ios::out);
+	ftest.open("sqldata.txt",ios::out);
 	while(getline(fin,line)) //拷贝文件，将文件sqlhelpdata中的内容拷贝到sqldata中
 		ftest << line << endl;
 	printf("修改成功\n");
@@ -250,10 +250,10 @@ void Handle_Delete(const char *Deletestr) { //删除操作
 	for(index+=2; *index!='\''; index++) //匹配要选择的属性值
 		result[pivot++]=*index;
 	result[pivot]='\0';
-	ifstream in("d:\\HAPPY\\sqldata.txt");
+	ifstream in("sqldata.txt");
 	fstream out;
-	out.open("d:\\HAPPY\\sqlhelpdata.txt",ios::out);
-	ofstream oout("d:\\HAPPY\\sqlhelpdata.txt");
+	out.open("sqlhelpdata.txt",ios::out);
+	ofstream oout("sqlhelpdata.txt");
 	char finally[Max],check[Max],par[Max];
 	int Count;
 	string line;
@@ -281,9 +281,9 @@ void Handle_Delete(const char *Deletestr) { //删除操作
 				par[pivot++]=*index;
 		}
 	}
-	ifstream fin("d:\\HAPPY\\sqlhelpdata.txt");
+	ifstream fin("sqlhelpdata.txt");
 	fstream ftest;
-	ftest.open("d:\\HAPPY\\sqldata.txt", ios::out);
+	ftest.open("sqldata.txt", ios::out);
 	while(getline(fin,line)) //拷贝文件
 		ftest << line << endl;
 	printf("删除成功\n");
@@ -322,7 +322,7 @@ void Hand_Index(const char *Indexstr) { //创建哈希索引
 	char check[Max];
 	string line;
 	int Count;
-	ifstream in("d:\\HAPPY\\sqldata.txt");
+	ifstream in("sqldata.txt");
 	memset(Trag,0,sizeof(Trag));
 	while(getline(in,line)) { //顺序读取每条记录
 		strcpy(check,line.c_str());
@@ -425,8 +425,8 @@ void Hash_search(char *Hash_searchstr) {
 
 void Merge(const struct Point *str1,int begin,int end,const struct Point *str2,int top,int bottom) {
 	fstream out;
-	out.open("d:\\HAPPY\\sortdata.txt",ios::out|ios::app);
-	ofstream oout("d:\\HAPPY\\sortdata.txt");
+	out.open("sortdata.txt",ios::out|ios::app);
+	ofstream oout("sortdata.txt");
 	int pivot=begin,index=top;
 	while(pivot<=end && index<=bottom) { //比较两个元素中关键值的大小
 		if(strcmp(str1[pivot].key,str2[index].key)<0) { //将关键值小的一方记录写入到文件中
@@ -455,7 +455,7 @@ void Handle_Sort(const char *Sortstr) {
 	for( ; *index!='\''; index++)
 		key[pivot++]=*index; //匹配排序依据属性名
 	key[pivot]='\0';
-	ifstream in("d:\\HAPPY\\sqldata.txt");
+	ifstream in("sqldata.txt");
 	string line;
 	char check[Max],par[Max];
 	int Count;
@@ -535,7 +535,7 @@ int main() {
 	while(gets(source)) { //输入字符串（包括空格符）
 		if(strstr(source,"Create")!=NULL) { //若为建表SQL语句，则创建文件sqldata，并调用相关的处理函数
 			fstream out;
-			out.open("d:\\HAPPY\\sqldata.txt", ios::out);
+			out.open("sqldata.txt", ios::out);
 			Handle_Create(source);
 		} else if(strstr(source,"Insert")!=NULL) //若为插入SQL语句，则调用相应的插入处理函数
 			Handle_Insert(source);
