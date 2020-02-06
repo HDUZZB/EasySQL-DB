@@ -1,0 +1,9 @@
+Create Student(sno,sname,ssex,sage,sdept)
+Insert into Student(sno,sname, ssex,sage,sdept) values('95001','李勇','男','20','CS')
+Insert into Student(sno,sname, ssex,sage,sdept) values('95002','刘晨','女','19','IS')
+Insert into Student(sno,sname, ssex,sage,sdept) values('95003','张建','女','21','IS')
+Select sno,sname,sage from Student where sdept='IS'
+Update Student set sname='李勇' where sage='21'
+Delete from Student where sname='李勇'
+Index sdept_name on Student (sdept)
+Sort 'sage'
